@@ -1,6 +1,10 @@
 import Lottie from "lottie-react"
 import registerAmnimation from "../../assets/lottiefiles//register.json"
+import { useContext } from "react"
+import AuthContext from "../../context/AuthContext/AuthContext"
 function Register() {
+  const { createUser } = useContext(AuthContext)
+
   const handleRegistration = (event) => {
     event.preventDefault()
     const form = event.target
@@ -8,9 +12,16 @@ function Register() {
     const email = form.email.value
     const password = form.password.value
     const user = { name, email, password }
+    console.log(user)
 
     // Password validation
-    console.log(user)
+    // show password validation error
+
+    createUser(email, password)
+      .then((res) => {
+        console.log(res.user)
+      })
+      .catch((err) => console.log(err))
   }
   return (
     <div className="hero bg-base-200 min-h-screen">
